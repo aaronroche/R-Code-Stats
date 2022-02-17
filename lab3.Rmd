@@ -1,0 +1,134 @@
+---
+title: "Lab 3"
+author: "Aaron Roche"
+output:
+  word_document: default
+  pdf_document: default
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE,fig.width=6, fig.height=3,cache = FALSE)
+```
+
+## Step 1: Preliminaries
+
+
+Load the mosaic and tidyverse (installed last week) packages:
+```{r}
+library(mosaic)
+library(tidyverse)
+```
+
+We will use the NHANES dataset (nhanes.csv) that we used last week. 
+Either replace the file path in the code below, or use File-> Import Dataset -> From Text (readr) and copy and paste the code that shows up in the console.
+```{r}
+library(readr)
+nhanes <- read_csv("nhanes.csv")
+View(nhanes)
+```
+
+This week we will examine the distributions of height and weight. Since these tend to be smaller for children, we will focus on adults. This code makes a new dataset, `adult`, by taking the subset of `nhanes` of subjects with `age`$\ge$`18`:
+```{r}
+adult <- filter(nhanes,age>=18)
+```
+
+
+### Problem 1
+a) Make a histogram of weight in the `adult` dataset
+```{r prob1a}
+# gf_histogram(~weight,data = adult)
+```
+b) Find the mean weight in `adult`
+```{r prob1b}
+# 82.20044 kg
+```
+c) Find the median weight in `adult`
+```{r prob1c}
+# 78.6 kg
+```
+d) From the histogram and/or the mean and median of weight, do you think the 
+distribution of weight is left skewed, symmetric, or right skewed? Why?
+  The distribution of weight seems to be right-skewed. This is because the values on the left of the histogram a larger and they start to decrease as you move to the left side. Also, the mean and median are located on the left side of the histogram.
+
+e) The weights here are in kilograms. To get weights in pounds, multiply by 2.2. What are the mean and median weights in pounds?
+```{r prob1e}
+# Mean in pounds: 180.840968 lbs
+# Median in pounds: 168.96 lbs
+```
+
+f) What would be the mean and median weight if the 2014 Godzilla had been included in the dataset?
+```{r prob1f}
+# Mean with Godzilla: 19719.97 kg
+# Median with Godzilla: 78.6 kg
+```
+
+## Problem 2
+a) Compute the variance, sd, and IQR of weight in the `adult` dataset in kilograms. 
+```{r prob2a}
+# variance in kg: 513.0326
+# sd in kg: 22.65022
+# IQR in kg: 27.8
+```
+b) Compute the variance, sd, and IQR of weight in the `adult` dataset in pounds. 
+```{r prob2b}
+# variance in lbs: 1128.6717
+# sd in lbs: 49.8304
+# IQR in lbs: 61.16
+```
+c) Compute the variance, sd, and IQR of weight if Godzilla were included in the dataset? Which measure changed the most? Which changed the least?
+```{r prob2c}
+# variance with Godzilla (kg): 1.767398e+12
+# sd with Godzilla (kg): 1329435
+# IQR with Godzilla (kg): 27.8
+```
+
+d) What would be the Z-score of Godzilla's weight, if he were included in the dataset?
+```{r prob2d}
+# 67.6831
+```
+
+
+## Problem 3
+
+a) Compute the 5-number summary for `weight` in the `adult` dataset. 
+```{r prob3a}
+#   0%   25%   50%   75%  100% 
+# 36.8  66.4  78.6  94.2 219.6 
+```
+
+
+b) Use the `mean()` and `quantile()` functions to compute exactly what proportion of the weights are below the 0.1th quantile. 
+```{r prob3b}
+# 0.09995635
+```
+
+
+c) Make a boxplot of `weight`.
+```{r prob3c}
+# gf_boxplot(~weight, data=adult)
+```
+
+
+
+## Problem 4
+
+a) Make a scatterplot of height vs weight
+```{r prob4a}
+# gf_point(height~weight,data=adult)
+```
+
+b) What is the correlation of height and weight?
+```{r prob4b}
+# 0.4396119
+```
+
+c) What would the corrleation be if Godzilla were in the dataset?
+```{r prob4c}
+# 0.9999805
+```
+
+d) How about the Spearman correlation?
+
+```{r prob4d}
+# Spearman correlation of height and weight: 0.4590817
+```
